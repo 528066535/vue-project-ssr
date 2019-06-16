@@ -8,4 +8,6 @@ const app = new koa();
 ssr(app, isProd);
 
 app.listen(CONFIG.PORT);
+console.log('====================');
 console.log('listen at '+CONFIG.PORT);
+console.log('====================\n');

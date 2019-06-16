@@ -21,4 +21,6 @@ app.use(modifiedServe);
 ssr(app, isProd);
 
 app.listen(CONFIG.DISPORT);
+console.log('====================');
 console.log('listen at '+CONFIG.DISPORT);
+console.log('====================\n');

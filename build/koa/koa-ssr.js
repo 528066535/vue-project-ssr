@@ -15,15 +15,20 @@ const createRenderer = (bundle, options) => {
 
 const renderData = (ctx, renderer) => {
     const context = {
-        url: ctx.url
+        url: ctx.url,
     };
 
     return new Promise( (resolve, reject) => {
         renderer.renderToString(context, (err, html) => {
             if (err) {
-                return reject(err)
+                console.log('--------------');
+                console.log('error');
+                context.serverError = true;
+                resolve(html);
             }
-            resolve(html)
+            else {
+                resolve(html);
+            }
         })
     })
 };
@@ -57,18 +62,7 @@ module.exports = function(app, isProd){
         }
         const s = Date.now();
         let html,status;
-        try {
-            html = await renderData(ctx, renderer)
-        }catch(e) {
-            if (e.code === 404) {
-                status = 404;
-                html = '404 | Not Found'
-            }else{
-                status = 500;
-                html = '500 | Internal Server Error';
-                console.error(`error during render : ${ctx.url}`)
-            }
-        }
+        html = await renderData(ctx, renderer);
         ctx.type = 'html';
         ctx.status = status ? status : ctx.status;
         ctx.body = html;

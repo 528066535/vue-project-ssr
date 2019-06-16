@@ -57,6 +57,10 @@ else {
     )
 }
 
+console.log('=====================');
+console.log('run webpack.client.js');
+console.log('=====================\n');
+
 module.exports = merge(config, {
     devtool: isProd ? 'cheap-module-eval-source-map' : 'inline-source-map',
     entry: {
