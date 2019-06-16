@@ -9,9 +9,12 @@ const serverConfig = require('../webpack.server.js');
 const readFile = (fs, file) => fs.readFileSync(path.join(clientConfig.output.path, file), 'utf-8');
 
 module.exports = function setupDevServer(app, cb) {
-    let bundle, template, clientManifest;
+    let bundle, clientManifest;
+
+    const template = fsNode.readFileSync(path.resolve(__dirname, '../../src/resource/template/index.html'), 'utf-8');
 
     const update = () => {
+
         if (bundle && template && clientManifest) {
             cb(bundle, {
                 template,
@@ -40,7 +43,6 @@ module.exports = function setupDevServer(app, cb) {
             fs,
             'vue-ssr-client-manifest.json'
         ));
-        template = readFile(fs, 'index.html');
 
         update();
     });

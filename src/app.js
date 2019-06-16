@@ -4,6 +4,7 @@ import Router from '@Pub/router'
 import routers from '@Pub/router/local-menu'
 import routerMenu from '@Pub/router/router-menu'
 import main from './App.vue'
+import './resource/css'
 
 let homeRouters = null;
 for(let i in routers) {

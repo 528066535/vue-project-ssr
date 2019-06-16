@@ -6,10 +6,6 @@ const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
 const nodeExternals = require('webpack-node-externals');
 const styleLoader = require('./style-loader');
 
-console.log('=====================');
-console.log('run webpack.server.js');
-console.log('=====================\n');
-
 module.exports = merge(base, {
     mode: isProd ? 'production':'development',
     output: {

@@ -4,7 +4,7 @@ export default context => {
     return new Promise((resolve, reject)=>{
         const { app, router, store } = createApp('history');
 
-        const { url, serverError } = context;
+        const { url } = context;
         const { fullPath } = router.resolve(url).route;
 
         if (fullPath !== url && fullPath !== '/404') {
@@ -18,7 +18,7 @@ export default context => {
         router.onReady(() => {
             const matchedComponents = router.getMatchedComponents();
             if (!matchedComponents.length) {
-                console.log('为空')
+                console.log('为空');
                 return reject({ code: 404 })
             }
 
@@ -27,11 +27,9 @@ export default context => {
                 route: router.currentRoute
             }))).then( () => {
                 context.state = store.state;
-                console.log('------------');
-                console.log(context);
                 resolve(app)
             }).catch(()=>{
-                reject
+                resolve(app)
             })
         })
     })

@@ -28,7 +28,7 @@ if (!isProd) {
     plugins.push(
             new HtmlWebpackPlugin({
                 // chunks: ["app","css"],
-                filename: 'index.html',
+                filename: 'home.html',
                 template: path.resolve(__dirname, '../src/resource/template/index.html'),
                 inject: 'body',
                 title: '测试',
@@ -40,7 +40,7 @@ else {
     plugins.push(
             new HtmlWebpackPlugin({
                 // excludeChunks: ['server'],
-                filename: 'index.html',
+                filename: 'home.html',
                 template: path.resolve(__dirname, '../src/resource/template/index.html'),
                 inject: 'body',
                 title: '测试',
@@ -57,15 +57,11 @@ else {
     )
 }
 
-console.log('=====================');
-console.log('run webpack.client.js');
-console.log('=====================\n');
-
 module.exports = merge(config, {
     devtool: isProd ? 'cheap-module-eval-source-map' : 'inline-source-map',
     entry: {
         client: path.resolve(__dirname, '../src/enter-client.js'),
-        css: path.resolve(__dirname, '../src/resource/css/index.js')
+        // css: path.resolve(__dirname, '../src/resource/css/index.js')
     },
     output: {
         filename: '[name].js',
