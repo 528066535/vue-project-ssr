@@ -1,7 +1,5 @@
 import main from '@/resource/template/main'
 
-console.log('local-menu');
-
 let menu = [];
 menu = menu.concat([
     {
@@ -13,7 +11,7 @@ menu = menu.concat([
         ]
     },
     {
-        path: '/*',
+        path: '*',
         name: '404',
         meta: { auth: false },
         component:  () => import(/* webpackChunkName: "pages/error/vue/error" */'@Pages/error/vue/error'),

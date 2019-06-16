@@ -20,8 +20,6 @@ const renderData = (ctx, renderer) => {
 
     return new Promise( (resolve, reject) => {
         renderer.renderToString(context, (err, html) => {
-            console.log('解析的html');
-            console.log(html);
             if (err) {
                 return reject(err)
             }
@@ -34,8 +32,8 @@ module.exports = function(app, isProd){
     let renderer = null;
 
     if (isProd) { // 生产环境直接获取
-        const bundle = require('../../dist/vue-ssr-server-bundle.json');
         const template = fs.readFileSync(resolve('../../dist/index.html'), 'utf-8');
+        const bundle = require('../../dist/vue-ssr-server-bundle.json');
         const clientManifest = require('../../dist/vue-ssr-client-manifest.json');
         renderer = createRenderer(bundle, {
             template,
@@ -43,15 +41,15 @@ module.exports = function(app, isProd){
         })
     }
     else{ // 开发环境 要从内存中获取 serverBundle 和 clientManifest 和 template
+        const template = fs.readFileSync(resolve('../../src/resource/template/index.html'), 'utf-8');
         require('./setup-dev-server.js')(app, (bundle, options) => {
             console.log('bundle callback..');
+            options.template = template;
             renderer = createRenderer(bundle, options);
         })
     }
 
     router.get('*', async (ctx, next) => {
-        console.log('router.get');
-        console.log(ctx.path);
         // 提示webpack还在工作
         if (!renderer) {
             ctx.type = 'html';

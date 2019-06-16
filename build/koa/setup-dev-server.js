@@ -1,5 +1,5 @@
 const path = require('path')
-const fs = require('fs')
+const fsNode = require('fs')
 const MFS = require('memory-fs')
 const webpack = require('webpack')
 const middleware = require('webpack-koa2-middleware');
@@ -41,7 +41,7 @@ module.exports = function setupDevServer(app, cb) {
             fs,
             'vue-ssr-client-manifest.json'
         ));
-        template = readFile(fs, 'index.html')
+        template = readFile(fs, 'index.html');
 
         update();
     });

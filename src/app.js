@@ -15,9 +15,6 @@ for(let i in routers) {
 
 routers.concat(routerMenu.routers);
 
-console.log('app');
-console.log(routers);
-
 export function createApp (mode) {
     let router = Router.init(routers,mode);
     let store = createStore();
