@@ -19,6 +19,7 @@ module.exports = merge(base, {
     target: 'node',
     devtool: 'source-map',
     entry: {
+        // css: path.resolve(__dirname,'../src/resource/css/index.js'),
         app: path.resolve(__dirname, '../src/enter-server.js')
     },
 

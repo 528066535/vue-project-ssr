@@ -7,7 +7,8 @@ let config = isProd ? require('./webpack.prod.js') : require('./webpack.dev.js')
 module.exports = merge(config, {
     mode: isProd ? 'production':'development',
     entry: {
-        app: path.resolve(__dirname, '../src/enter-client.js')
+        app: path.resolve(__dirname, '../src/enter-client.js'),
+        css: path.resolve(__dirname,'../src/resource/css/index.js')
     },
     plugins: [
         new VueSSRClientPlugin(),

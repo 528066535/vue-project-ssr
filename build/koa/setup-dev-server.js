@@ -34,7 +34,6 @@ module.exports = function setupDevServer(app, cb) {
         stats = stats.toJson();
         stats.errors.forEach(err => console.error(err));
         stats.warnings.forEach(err => console.warn(err));
-        // let filePath = path.join(clientConfig.output.path, 'index.html');
         if (stats.errors.length) return;
 
         const fs = devMiddleware.fileSystem;

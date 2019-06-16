@@ -23,11 +23,12 @@ module.exports = merge(baseConf, {
         new webpack.NamedModulesPlugin(),
         //配置html入口信息
         new HtmlWebpackPlugin({
+            // chunks: ["app","css"],
             filename: 'index.html',
             template: './src/resource/template/index.html',
             inject: 'body',
             title: '测试',
-            hash: false,
+            hash: true,
             minify: {
                 //删除Html注释
                 // removeComments: true,
