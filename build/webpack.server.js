@@ -20,7 +20,7 @@ module.exports = merge(base, {
     devtool: 'source-map',
     entry: {
         // css: path.resolve(__dirname,'../src/resource/css/index.js'),
-        app: path.resolve(__dirname, '../src/enter-server.js')
+        server: path.resolve(__dirname, '../src/enter-server.js')
     },
 
     // https://webpack.js.org/configuration/externals/#function
