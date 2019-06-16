@@ -1,0 +1,71 @@
+{
+  "name": "project-modle",
+  "version": "1.0.0",
+  "description": "vue2.x + webpack4.x + koa2 + ssr",
+  "main": "index.js",
+  "scripts": {
+    "build:client": "cross-env NODE_ENV=production npx webpack --config build/webpack.client.js",
+    "build:server": "cross-env NODE_ENV=production npx webpack --config build/webpack.server.js",
+    "build": "rimraf dist && npm run build:client && npm run build:server",
+    "start": "cross-env NODE_ENV=production npx webpack build/koa/run.server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/528066535/project-modle.git"
+  },
+  "author": "weber",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/528066535/project-modle/issues"
+  },
+  "homepage": "https://github.com/528066535/project-modle#readme",
+  "dependencies": {
+    "babel-core": "7.0.0-bridge.0",
+    "babel-plugin-dynamic-import-node": "^2.2.0",
+    "babel-preset-env": "^1.7.0",
+    "express": "^4.17.1",
+    "file-loader": "^3.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "koa": "^2.7.0",
+    "koa-ejs": "^4.2.0",
+    "koa-proxies": "^0.8.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "less-plugin-clean-css": "^1.5.1",
+    "memory-fs": "^0.4.1",
+    "url-loader": "^1.1.2",
+    "vue": "^2.6.10",
+    "vue-loader": "^15.7.0",
+    "vue-router": "^3.0.6",
+    "vue-server-renderer": "^2.6.10",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.10",
+    "vuex": "^3.1.1",
+    "webpack-koa2-middleware": "^2.1.0",
+    "webpack-merge": "^4.2.1",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.4.5",
+    "autoprefixer": "^9.5.1",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-dynamic-import-webpack": "^1.1.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "clean-webpack-plugin": "^2.0.2",
+    "cross-env": "^5.2.0",
+    "css-loader": "^2.1.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "mini-css-extract-plugin": "^0.6.0",
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^6.0.1",
+    "typescript": "^3.4.5",
+    "webpack": "^4.33.0",
+    "webpack-cli": "^3.3.4",
+    "webpack-manifest-plugin": "^2.0.4"
+  }
+}
