@@ -28,23 +28,26 @@ if (!isProd) {
     plugins.push(
             new HtmlWebpackPlugin({
                 // chunks: ["app","css"],
-                filename: 'home.html',
+                excludeChunks: ['server','client','css'],
+                filename: 'template/home.html',
                 template: path.resolve(__dirname, '../src/resource/template/index.html'),
                 inject: 'body',
                 title: '测试',
-                hash: false
+                hash: false,
+                favicon: path.resolve(__dirname, '../src/resource/asset/images/favicon.ico'),
             }),
     );
 }
 else {
     plugins.push(
             new HtmlWebpackPlugin({
-                // excludeChunks: ['server'],
-                filename: 'home.html',
+                excludeChunks: ['server','client','css'],
+                filename: 'template/home.html',
                 template: path.resolve(__dirname, '../src/resource/template/index.html'),
                 inject: 'body',
                 title: '测试',
                 hash: true,
+                favicon: path.resolve(__dirname, '../src/resource/asset/images/favicon.ico'),
                 minify: {
                     // 删除Html注释
                     // removeComments: true,
@@ -58,17 +61,10 @@ else {
 }
 
 module.exports = merge(config, {
-    devtool: isProd ? 'cheap-module-eval-source-map' : 'inline-source-map',
     entry: {
         client: path.resolve(__dirname, '../src/enter-client.js'),
-        // css: path.resolve(__dirname, '../src/resource/css/index.js')
     },
-    output: {
-        filename: '[name].js',
-        path: path.resolve(__dirname, '../dist'),
-        chunkFilename: '[name].js',
-        publicPath: '/',
-    },
+
     module: {
         rules: styleLoader.styleLoader({extract: isProd, sourceMap: !isProd})
     },

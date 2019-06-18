@@ -2,6 +2,7 @@ const styleLoader = require('./style-loader');
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
+    name: 'pages/[name]/',
     loaders: styleLoader.cssLoader({
         sourceMap: !isProd,
         extract: isProd,

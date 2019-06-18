@@ -1,5 +1,3 @@
-const router = require('koa-router')();
-
 const path = require('path');
 
 const fs = require('fs');
@@ -41,7 +39,7 @@ module.exports = {
     init: function(app, initProd){
         isProd = initProd;
         if (isProd) { // 生产环境直接获取
-            const template = fs.readFileSync(resolve('../../dist/index.html'), 'utf-8');
+            const template = fs.readFileSync(resolve('../../dist/template/home.html'), 'utf-8');
             const bundle = require('../../dist/vue-ssr-server-bundle.json');
             const clientManifest = require('../../dist/vue-ssr-client-manifest.json');
             renderer = createRenderer(bundle, {
@@ -55,13 +53,6 @@ module.exports = {
             })
         }
 
-
-
-        // router.get('*', async (ctx, next) => {
-        //
-        // });
-
-        // app.use(router.routes()).use(router.allowedMethods());
     },
 
     renderHtml:async function (ctx, empty) {
@@ -82,7 +73,7 @@ module.exports = {
                 html = '404 | Not Found'
             }else{
                 status = 500;
-                html = '500 | Internal Server Error'
+                html = '500 | Internal Server Error';
                 console.error(`error during render : ${ctx.url}`)
             }
         }
@@ -94,5 +85,3 @@ module.exports = {
         return html;
     }
 };
-
-

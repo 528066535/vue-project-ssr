@@ -4,19 +4,62 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const isProd = process.env.NODE_ENV === 'production';
 const vueConfig = require('./vue-loader.conf.js');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const fileName = isProd ? '[name].[chunkHash:8]':'[name]';
+
+let output;
+
+if(isProd) {
+    output = {
+        filename: `${fileName}.js`,
+        path: path.resolve(__dirname, '../dist'),
+        chunkFilename: `${fileName}.js`,
+        publicPath: '/',
+    };
+}
+else {
+    output = {
+        filename: '[name].js',
+        path: path.resolve(__dirname, '../dist'),
+        chunkFilename: '[name].js',
+        publicPath: '/',
+    };
+}
 
 module.exports = {
-    output: {
-        path: path.resolve(__dirname, '../dist'),
-        publicPath: '/',
-        filename: '[name].js',
-        chunkFilename: '[name].js'
+    entry: {
     },
+    output: output,
+
+    // optimization: {
+    //     splitChunks: {
+    //         chunks: 'initial', // 只对入口文件处理
+    //         cacheGroups: {
+    //             vendor: { // split `node_modules`目录下被打包的代码到 `page/vendor.js && .css` 没找到可打包文件的话，则没有。css需要依赖 `ExtractTextPlugin`
+    //                 test: /node_modules\//,
+    //                 name: 'page/vendor',
+    //                 priority: 10,
+    //                 enforce: true
+    //             },
+    //             commons: { // split `common`和`components`目录下被打包的代码到`page/commons.js && .css`
+    //                 test: /common\/|components\//,
+    //                 name: 'page/commons',
+    //                 priority: 10,
+    //                 enforce: true
+    //             }
+    //         }
+    //     },
+    //     runtimeChunk: {
+    //         name: 'page/manifest'
+    //     }
+    // },
+
+    devtool: isProd ? 'cheap-module-eval-source-map' : 'inline-source-map',
     mode: isProd ? 'production':'development',
     plugins: [
+
         new ExtractTextPlugin({
             filename:  (getPath) => {
-                return getPath('css/[name].[chunkhash].css');
+                return getPath(`css/${fileName}.css`);
             },
         }),
         new VueLoaderPlugin(),
@@ -53,7 +96,7 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: '[name].[chunkhash].[ext]',
+                            name: `${fileName}.[ext]`,
                             outputPath: 'font/' //字体可以设置存放位置
                         }
                     }
@@ -68,7 +111,7 @@ module.exports = {
                         loader: 'url-loader',
                         // fallback: 'file-loader',
                         options: {
-                            name: '[name].[chunkhash].[ext]',
+                            name: `${fileName}.[ext]`,
                             outputPath: 'images/',
                             limit: 10000
                         }
@@ -84,7 +127,7 @@ module.exports = {
                         loader: 'url-loader',
                         // fallback: 'file-loader',
                         options: {
-                            name: '[name].[chunkhash].[ext]',
+                            name: `${fileName}.[ext]`,
                             outputPath: 'media/',
                             limit: 10000
                         }

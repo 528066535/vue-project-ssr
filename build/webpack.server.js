@@ -9,15 +9,10 @@ const styleLoader = require('./style-loader');
 module.exports = merge(base, {
     mode: isProd ? 'production':'development',
     output: {
-        filename: '[name].[chunkhash].js',
-        path: path.resolve(__dirname, '../dist'),
-        chunkFilename: '[name].[chunkhash].js',
-        publicPath: '/',
         libraryTarget: 'commonjs2'
     },
 
     target: 'node',
-    devtool: 'source-map',
     entry: {
         // css: path.resolve(__dirname,'../src/resource/css/index.js'),
         server: path.resolve(__dirname, '../src/enter-server.js')
@@ -37,7 +32,7 @@ module.exports = merge(base, {
     module: {
         rules: styleLoader.styleLoader({
             extract: isProd,
-            sourceMap: isProd
+            sourceMap: !isProd
         })
     },
 

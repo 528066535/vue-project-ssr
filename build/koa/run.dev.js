@@ -9,6 +9,7 @@ ssr.init(app, isProd);
 
 //index.html 不能有，不然可能会出问题
 app.use(async ctx => {
+    console.log(ctx.path);
     if (ctx.path === '/') {
         await ssr.renderHtml(ctx, true).then(res=>{
             let html = res;
