@@ -27,8 +27,7 @@ if (!isProd) {
 
     plugins.push(
             new HtmlWebpackPlugin({
-                // chunks: ["app","css"],
-                excludeChunks: ['server','client','css'],
+                excludeChunks: ['vendor','client'],
                 filename: 'template/home.html',
                 template: path.resolve(__dirname, '../src/resource/template/index.html'),
                 inject: 'body',
@@ -41,7 +40,7 @@ if (!isProd) {
 else {
     plugins.push(
             new HtmlWebpackPlugin({
-                excludeChunks: ['server','client','css'],
+                excludeChunks: ['vendor','client'],
                 filename: 'template/home.html',
                 template: path.resolve(__dirname, '../src/resource/template/index.html'),
                 inject: 'body',
@@ -68,5 +67,18 @@ module.exports = merge(config, {
     module: {
         rules: styleLoader.styleLoader({extract: isProd, sourceMap: !isProd})
     },
-    plugins: plugins
+    plugins: plugins,
+
+    optimization: {
+        splitChunks: {
+            chunks: 'all', // 只对入口文件处理
+            cacheGroups: {
+                vendor: { // split `node_modules`目录下被打包的代码到 `page/vendor.js && .css` 没找到可打包文件的话，则没有。css需要依赖 `ExtractTextPlugin`
+                    test: /node_modules\//,
+                    name: 'vendor',
+                    priority: 10,
+                },
+            }
+        }
+    },
 });
