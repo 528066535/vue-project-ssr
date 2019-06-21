@@ -13,9 +13,6 @@ app.use(proxy('/api', {
     xfwd: true,
     changeOrigin: false,
     rewrite: path => {
-        console.log('====================');
-        console.log('请求');
-        console.log(path);
         return path.replace('/api/', '/');
     },
     logs: false
