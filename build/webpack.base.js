@@ -4,31 +4,17 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const isProd = process.env.NODE_ENV === 'production';
 const vueConfig = require('./vue-loader.conf.js');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const fileName = isProd ? '[name].[chunkHash:8]':'[name]';
-
-let output;
-
-if(isProd) {
-    output = {
-        filename: `${fileName}.js`,
-        path: path.resolve(__dirname, '../dist'),
-        chunkFilename: `${fileName}.js`,
-        publicPath: '/',
-    };
-}
-else {
-    output = {
-        filename: '[name].js',
-        path: path.resolve(__dirname, '../dist'),
-        chunkFilename: '[name].js',
-        publicPath: '/',
-    };
-}
+const fileName = isProd ? '[name].[chunkhash:8]':'[name]';
 
 module.exports = {
     entry: {
     },
-    output: output,
+    output: {
+        filename: `${fileName}.js`,
+        path: path.resolve(__dirname, '../dist'),
+        chunkFilename: `${fileName}.chunk.js`,
+        publicPath: '/',
+    },
 
     devtool: isProd ? 'cheap-module-eval-source-map' : 'inline-source-map',
     mode: isProd ? 'production':'development',
@@ -41,7 +27,8 @@ module.exports = {
         }),
         new VueLoaderPlugin(),
         new webpack.ProvidePlugin({
-            Vue: 'vue'
+            Vue: 'vue',
+            axios: 'axios',
         })
     ],
     resolve: {
@@ -52,7 +39,8 @@ module.exports = {
             '@Images': path.resolve(__dirname, "../src/resource/asset/images"),
             '@Core': path.resolve(__dirname, "../src/resource/core"),
             '@Pub': path.resolve(__dirname, "../src/resource/pub"),
-            'vue$': 'vue/dist/vue.common.js',
+            'vue$': 'vue/dist/vue.runtime.common.js',
+            'axios': 'axios/dist/axios.min.js',
         }
     },
     module: {

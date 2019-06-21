@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/528066535/project-modle#readme",
   "dependencies": {
+    "axios": "^0.19.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-plugin-dynamic-import-node": "^2.2.0",
     "babel-preset-env": "^1.7.0",
@@ -29,6 +30,7 @@
     "koa-ejs": "^4.2.0",
     "koa-proxies": "^0.8.1",
     "koa-static": "^5.0.0",
+    "koa2-webpack-middleware-plus": "0.0.4",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "less-plugin-clean-css": "^1.5.1",

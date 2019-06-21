@@ -5,6 +5,8 @@ export default context => {
         const { app, router, store } = createApp('history');
 
         const { url } = context;
+        // console.log('服务器渲染返回的数据');
+        // console.log(context);
         const { fullPath } = router.resolve(url).route;
 
         if (fullPath !== url && fullPath !== '/404') {

@@ -13,8 +13,7 @@ const createRenderer = (bundle, options) => {
 
 const renderData = (ctx, renderer, empty) => {
     const context = {
-        url: empty? '/index':ctx.path,
-        status: ctx.response.status
+        url: empty? '/index':ctx.url
     };
 
     return new Promise( (resolve, reject) => {

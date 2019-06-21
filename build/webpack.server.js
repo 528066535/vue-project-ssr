@@ -1,6 +1,7 @@
 const merge = require('webpack-merge');
 const base = require('./webpack.base.js');
 const path = require('path');
+const webpack = require('webpack');
 const isProd = process.env.NODE_ENV === 'production';
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
 const nodeExternals = require('webpack-node-externals');
@@ -40,6 +41,11 @@ module.exports = merge(base, {
     // 构建为单个 JSON 文件的插件。
     // 默认文件名为 `vue-ssr-server-bundle.json`
     plugins: [
-        new VueSSRServerPlugin()
+        new VueSSRServerPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"server"'
+            }
+        }),
     ]
 });

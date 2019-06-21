@@ -1,33 +1,32 @@
 import Config from './config'
 
+let NODE_ENV = process.env.NODE_ENV;
+
 let set = (key,value) => {
-    return null;
-    // if(!window) {
-    //     return null;
-    // }
-    // var key = getKey(key);
-    // var value = compile(JSON.stringify(value));
-    // return window.localStorage.setItem(key, value);
+    if(NODE_ENV === 'server') {
+        return null;
+    }
+    var key = getKey(key);
+    var value = compile(JSON.stringify(value));
+    return window.localStorage.setItem(key, value);
 };
 
 let get = (key) => {
-    return null;
-    // if(!window) {
-    //     return null;
-    // }
-    // var key = getKey(key);
-    // let result = window.localStorage.getItem(key);
-    // var data = result?JSON.parse(uncompile(result)):null;
-    // return data?data:null;
+    if(NODE_ENV === 'server') {
+        return null;
+    }
+    var key = getKey(key);
+    let result = window.localStorage.getItem(key);
+    var data = result?JSON.parse(uncompile(result)):null;
+    return data?data:null;
 };
 
 let remove = (key) => {
-    return null;
-    // if(!window) {
-    //     return null;
-    // }
-    // var key = getKey(key);
-    // return window.localStorage.removeItem(key);
+    if(NODE_ENV === 'server') {
+        return null;
+    }
+    var key = getKey(key);
+    return window.localStorage.removeItem(key);
 };
 
 let getUser = () => {

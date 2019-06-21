@@ -22,7 +22,7 @@ let plugins = [
 if (!isProd) {
     plugins.push(
             //开启HMR(热替换功能,替换更新部分,不重载页面！)
-            new webpack.HotModuleReplacementPlugin(),
+            new webpack.HotModuleReplacementPlugin({  }),
     );
 
     plugins.push(
@@ -62,14 +62,19 @@ else {
 module.exports = merge(config, {
     entry: {
         client: path.resolve(__dirname, '../src/enter-client.js'),
+        // css: path.resolve(__dirname, '../src/resource/css/index.js'),
     },
 
     module: {
         rules: styleLoader.styleLoader({extract: isProd, sourceMap: !isProd})
     },
+
     plugins: plugins,
 
     optimization: {
+        runtimeChunk: {
+            name: 'runtime'
+        },
         splitChunks: {
             chunks: 'all', // 只对入口文件处理
             cacheGroups: {

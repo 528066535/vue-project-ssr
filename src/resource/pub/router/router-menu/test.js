@@ -8,6 +8,6 @@ export default {
     },
 
     router: [
-        { path: 'test/test', name: '测试界面', component: component.test },
+        { path: '/page/test/test', name: '测试界面', component: component.test },
     ]
 }
