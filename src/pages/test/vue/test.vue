@@ -21,7 +21,7 @@
         },
 
         mounted(){
-            axios({url:'/api/index-copyright',method: 'get',})
+            axios({url:'/node-api/api/data.json',method: 'get'})
                     .then(function (response) {
                         // handle success
                         console.log(response);
