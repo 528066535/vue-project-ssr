@@ -2,7 +2,7 @@ const axios = require('axios');
 const CONFIG = require('./CONFIG');
 
 function api(ctx) {
-    return axios.get(`${CONFIG.API_URL}/api/data.json`)
+    return axios.get(`${CONFIG.API_URL}/data.json`)
             .then(function (response) {
                 ctx.renderData = {
                     path: ctx.path,

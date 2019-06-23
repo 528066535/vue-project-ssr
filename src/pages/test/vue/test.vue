@@ -4,6 +4,7 @@
 <script>
     import { TEST_PAGE_SAVE } from '@Pub/store/pages/page-vuex-type.js'
     import route from '@Pub/router'
+    import axios from 'axios'
 
     export default {
 
@@ -23,8 +24,14 @@
         },
 
         mounted(){
-            console.log('mounted');
-            // this.$store.dispatch('fetchItem')
+            axios.get(`/node-api/data.json`)
+                    .then(function (response) {
+                        console.log('==========');
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    });
         },
 
         methods: {

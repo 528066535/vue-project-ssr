@@ -6,20 +6,11 @@ module.exports = {
     init: function (app, ssr) {
         //index.html 不能有，不然会直接返回index.html
         app.use(async (ctx, next) => {
-            //首页
-            if (ctx.path === '/') {
-                await api(ctx);
-                await ssr.renderHtml(ctx, true).then(res=>{
-                    let html = res;
-                    ctx.response.type = 'text/html';
-                    ctx.body  = html;
-                });
-            }
-            //请求了api
-            else if(ctx.path.indexOf(CONFIG.SERVER_API)>-1) {
+            // 首页
+            if(ctx.path.indexOf(CONFIG.SERVER_API)>-1) {
                 return next();
             }
-            //渲染界面
+            // 渲染界面
             else {
                 await api(ctx);
                 await ssr.renderHtml(ctx, false).then(res=>{
@@ -41,6 +32,6 @@ module.exports = {
                 return path.replace(CONFIG.SERVER_API, '');
             },
             logs: false
-        }));
+        }),);
     }
 };
