@@ -13,6 +13,12 @@ module.exports = merge(base, {
         libraryTarget: 'commonjs2'
     },
 
+    resolve: {
+        alias: {
+
+        }
+    },
+
     target: 'node',
     entry: {
         // css: path.resolve(__dirname,'../src/resource/css/index.js'),

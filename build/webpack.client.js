@@ -65,6 +65,12 @@ module.exports = merge(config, {
         // css: path.resolve(__dirname, '../src/resource/css/index.js'),
     },
 
+    resolve: {
+        alias: {
+            'create-api': path.resolve(__dirname, '../src/resource/core/api/create-api-client.js')
+        }
+    },
+
     module: {
         rules: styleLoader.styleLoader({extract: isProd, sourceMap: !isProd})
     },

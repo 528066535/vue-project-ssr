@@ -12,10 +12,11 @@ let mutations = {
 let actions = {
     [type.TEST_PAGE_SAVE]({commit}, page) {
         console.log('save');
-        return new Promise(function (resolve, reject) {
-            commit(type.TEST_PAGE_SAVE, 10);
-            resolve('bar ajax 返回数据');
-        });
+        commit(type.TEST_PAGE_SAVE, 11);
+    },
+
+    fetchItem ({ commit }) {
+        console.log('fetchItem===========');
     }
 };
 
