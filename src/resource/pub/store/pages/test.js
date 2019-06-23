@@ -10,9 +10,8 @@ let mutations = {
 };
 
 let actions = {
-    [type.TEST_PAGE_SAVE]({commit}, page) {
-        console.log('save');
-        commit(type.TEST_PAGE_SAVE, 11);
+    [type.TEST_PAGE_SAVE]({commit}, data) {
+        commit(type.TEST_PAGE_SAVE, data);
     },
 
     fetchItem ({ commit }) {

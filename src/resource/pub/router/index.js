@@ -45,4 +45,58 @@ export default {
 
         return router;
     },
+
+    /**
+     * 地址跳转
+     */
+    go(url, param, reload){
+        Vue.nextTick(() => {
+            if(router && (url !== router.history.current.path)){
+                const name = router.history.current.name;
+                param = param || {};
+                let currentParam = this.param;
+                if(currentParam.menu && !param.menu){
+                    param.menu = currentParam.menu;
+                }
+
+                if(name && param.id){
+                    param.fn = name;
+                }
+
+                url = url.split('?')[0];
+
+                if(reload){
+                    this.replace(param, url, true);
+                    window.location.reload();
+                }else{
+                    router.push({path: url, query: param});
+                }
+            }else{
+                window.location.reload();
+            }
+        });
+    },
+
+    replace(param, replaceUrl, isPush){
+        let url = replaceUrl || this.url;
+        let urlParam = util.getUrlParams(url);
+        for(let key in param){
+            urlParam[key] = param[key];
+        }
+        url = url.split('?')[0];
+        let query = [];
+        for(let key in urlParam){
+            if(key){
+                query.push(`${key}=${urlParam[key]}`);
+            }
+        }
+
+        let queryParam = query.length > 0?'?' + query.join('&'):'';
+        if(isPush){
+            history.pushState(null, "", "#" + url + queryParam);
+        }else{
+            history.replaceState(null, "", "#" + url + queryParam);
+        }
+
+    }
 }

@@ -4,10 +4,12 @@ export default context => {
     return new Promise((resolve, reject)=>{
         const { app, router, store } = createApp('history');
 
-        const { url } = context;
-        // console.log('服务器渲染返回的数据');
-        // console.log(context);
+        const { url, renderData } = context;
+        console.log('服务器渲染返回的数据');
         const { fullPath } = router.resolve(url).route;
+        store.renderData = renderData;
+        console.log(renderData);
+        console.log(store);
 
         if (fullPath !== url && fullPath !== '/404') {
             return reject({ url: fullPath })
@@ -26,7 +28,8 @@ export default context => {
 
             Promise.all(matchedComponents.map( ({asyncData}) => asyncData && asyncData({
                 store,
-                route: router.currentRoute
+                route: router.currentRoute,
+                renderData
             }))).then( () => {
                 context.state = store.state;
                 resolve(app)

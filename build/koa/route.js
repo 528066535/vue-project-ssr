@@ -1,28 +1,32 @@
 const CONFIG = require('./CONFIG');
 const proxy = require('koa-proxies');
+const api = require('./api');
 
 module.exports = {
     init: function (app, ssr) {
-        //index.html 不能有，不然可能会出问题
+        //index.html 不能有，不然会直接返回index.html
         app.use(async (ctx, next) => {
+            //首页
             if (ctx.path === '/') {
+                await api(ctx);
                 await ssr.renderHtml(ctx, true).then(res=>{
                     let html = res;
                     ctx.response.type = 'text/html';
                     ctx.body  = html;
                 });
-            } else if(ctx.path.indexOf(CONFIG.SERVER_API)==-1 && ctx.path.indexOf(CONFIG.NODE_API)==-1) {
-                console.log('============');
-                console.log('node 编译首屏html...');
-                console.log('============');
+            }
+            //请求了api
+            else if(ctx.path.indexOf(CONFIG.SERVER_API)>-1) {
+                return next();
+            }
+            //渲染界面
+            else {
+                await api(ctx);
                 await ssr.renderHtml(ctx, false).then(res=>{
                     let html = res;
                     ctx.response.type = 'text/html';
                     ctx.body  = html;
                 });
-            }
-            else if(ctx.path.indexOf(CONFIG.SERVER_API)>-1) {
-                return next();
             }
         });
     },
@@ -34,7 +38,7 @@ module.exports = {
             changeOrigin: false,
             rewrite: path => {
                 console.log(path);
-                return path.replace(CONFIG.SERVER_TAG, '');
+                return path.replace(CONFIG.SERVER_API, '');
             },
             logs: false
         }));
