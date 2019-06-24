@@ -9,12 +9,12 @@
     export default {
 
         // 自定义获取数据的函数。
-        asyncData ({ store, route, renderData }) {
+        asyncData ({ store, route }) {
             // 触发 action 后，会返回 Promise
             // return store.dispatch('fetchItem')
             console.log('test.vue');
             console.log(renderData);
-            return store.dispatch(TEST_PAGE_SAVE, renderData.data)
+            return store.dispatch(TEST_PAGE_SAVE, store.renderData.data)
         },
         computed: {
             // 从 store 的 state 对象中的获取 item。
